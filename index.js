@@ -35,6 +35,21 @@ async function run(){
           res.send(service);
         })
 
+        // POST
+        app.post('/site', async(req, res) =>{
+          const newService = req.body;
+          const result = await serviceCollection.insertOne(newService);
+          res.send(result);
+        })
+
+        // Delete
+        app.delete('/site/:id', async(req, res) =>{
+          const id = req.params.id;
+          const query = {_id: ObjectId(id)};
+          const result = await serviceCollection.deleteOne(query);
+          res.send(result);
+        });
+
     }
     finally{
 
